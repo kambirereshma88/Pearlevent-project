@@ -1,0 +1,42 @@
+{% extends 'customer/navbar.html' %}
+
+{% block body %}
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Register</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <form method="POST" class="p-4 border rounded-3 shadow-sm bg-light">
+        {% if error_msg %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error_msg }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
+
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="mb-3">
+          <label for="cpassword" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+        </div>
+        <div class="mb-3">
+          <label for="type" class="form-label">Register me as</label>
+          <select class="form-select" id="type" name="type" required>
+            <option value="customer">Customer</option>
+            <option value="organizer">Organizer</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+        <p class="text-center mt-3">Already have an account? <a href="/login">Click here to login</a></p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock body %}

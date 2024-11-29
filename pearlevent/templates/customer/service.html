@@ -1,0 +1,186 @@
+<!-- customer/all_events.html -->
+{% extends "customer/navbar.html" %}
+
+{% block style %}
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: linear-gradient(to bottom right, #6F58E0, #DE5499);
+        color: white;
+        position: relative;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-title {
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .card-subtitle {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #f1f1f1;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        color: #f1f1f1;
+    }
+
+    .container {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+    }
+
+    .no-events {
+        font-size: 1.2rem;
+        color: #888;
+    }
+
+    .page-title {
+        color: #6F58E0;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card:hover .card-overlay {
+        opacity: 1;
+    }
+
+    .card-overlay-content {
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .btn-primary {
+        background-color: #DE5499;
+        border-color: #DE5499;
+    }
+
+    .btn-primary:hover {
+        background-color: #6F58E0;
+        border-color: #6F58E0;
+    }
+
+    .search-container {
+  background-color: #f8f9fa;; /* Light creamy background */
+      border-radius: 15px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+      padding: 10px;
+    }
+    .form-control {
+      border-radius: 10px; /* Rounded corners */
+      border: 2px solid #dee2e6; /* Light border */
+    }
+    .form-control:focus {
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus shadow effect */
+      border-color: #007bff; /* Focus border color */
+    }
+    .btn-custom {
+      background-color: #28a745; /* Custom button color */
+      color: white;
+      border-radius: 10px; /* Rounded corners */
+      transition: background-color 0.3s;
+    }
+    .btn-custom:hover {
+      background-color: #218838; /* Hover effect */
+    }
+    .btn-orange {
+      background-color: #fd7e14; /* Orange */
+      color: white;
+      border-radius: 10px; /* Rounded corners */
+      transition: background-color 0.3s;
+    }
+    .btn-orange:hover {
+      background-color: #e36414; /* Hover effect */
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-2">
+    <div class="row">
+       <div class="col-4"></div>
+       <div class="col-4">
+          <form class="d-flex" role="search" method="POST" action="/search/">
+             {% csrf_token %}
+             <input class="form-control me-2" type="search" placeholder="Search by location" name="eventlocation" aria-label="Search">
+             <button class="btn btn-primary" type="submit">Search </button>
+           </form>
+       </div>
+       <div class="col-4"></div>
+    </div>
+ </div>
+ 
+<div class="container mt-5 shadow-sm p-4 rounded">
+    <div class="row">
+        {% if events %}
+            {% for event in events %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ event.image.url }}" class="card-img-top" height="100px">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.name }}</h5>
+                            <h6 class="card-subtitle mb-2">{{ event.category }}</h6>
+                            <p class="card-text"><strong>Start Date:</strong> {{ event.startdate }}</p>
+                            <p class="card-text"><strong>End Date:</strong> {{ event.enddate }}</p>
+                            <p class="card-text"><strong>Price:</strong> {{ event.price }}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ event.eventlocation }}</p>
+                            <p class="card-text">{{ event.eventdescription }}</p>
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-overlay-content">
+                                <h5 class="card-title">{{ event.name }}</h5>
+                                <p>{{ event.eventdescription }}</p>
+                                <a href="/book-event/{{event.id}}" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <p class="text-center no-events">No events found.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'customer/navbar.html' %}
+
+{% block body %}
+<style>
+    .form-container {
+        margin-top: 50px;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+        margin-bottom: 30px;
+    }
+    .btn-custom {
+        background-color: #007bff;
+        color: white;
+    }
+    .btn-custom:hover {
+        background-color: #0056b3;
+    }
+</style>
+<div class="container mt-5 w-50">
+    <div class="card form-container">
+        <div class="card-body">
+            <h2 class="card-title">Customer Details Form</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required name="name">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea class="form-control" id="address" rows="3" placeholder="Enter your address" required name="address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required name="phonenumber">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required name="email">
+                </div>
+
+                <select class="form-select mt-4" aria-label="Default select example" name="event">
+                    <option selected >Select event</option>
+                    <option value="Wedding Panning">Wedding Planning</option>
+                    <option value="Birthday Planning">Birthday Party</option>
+                  </select>
+                <button type="submit" class="btn btn-custom mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

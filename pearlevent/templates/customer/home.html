@@ -1,0 +1,74 @@
+{% extends "customer/navbar.html" %}
+
+{% load static %}
+{% block body %}
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    .bg {
+        /* The image used */
+        background-image: url("{% static 'images/website_bg.jpg' %}");
+
+        /* Full height */
+        height: 100%; 
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        /* Ensure the background covers the entire viewport */
+        position: relative;
+    }
+    .content {
+        /* Center content vertically and horizontally */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+        border-radius: 10px; /* Rounded corners for a soft look */
+    }
+    .content h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for better readability */
+    }
+    .content p {
+        font-size: 1.25rem;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Shadow for better readability */
+    }
+    .btn-custom {
+        background-color: rgba(0, 123, 255, 0.8);
+        border-color: rgba(0, 123, 255, 0.8);
+        color: white;
+        border-radius: 5px; /* Rounded button corners */
+        padding: 10px 20px;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+    }
+    .btn-custom:hover {
+        background-color: rgba(0, 123, 255, 1);
+        border-color: rgba(0, 123, 255, 1);
+        text-decoration: none;
+    }
+</style>
+
+<div class="bg">
+    <div class="content">
+        <h1>Welcome to Pearlevent</h1>
+        <p>Organize your events seamlessly with our comprehensive planning tools.</p>
+
+    </div>
+</div>
+
+{% endblock body %}
